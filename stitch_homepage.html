@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kokin Coffee | The Perfect Blend</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#eae2d1",
+                    "surface-container-highest": "#eae2d1",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#efe7d7",
+                    "on-tertiary-fixed": "#001e2b",
+                    "tertiary-fixed": "#c1e8fe",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#2c1600",
+                    "surface-container": "#f5eddc",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#ffdcbe",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#1a4254",
+                    "on-secondary-container": "#546868",
+                    "surface-container-low": "#fbf3e2",
+                    "on-tertiary-fixed-variant": "#254b5d",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1e1b11",
+                    "tertiary-fixed-dim": "#a6cce2",
+                    "surface-bright": "#fff9ef",
+                    "secondary": "#4e6262",
+                    "inverse-surface": "#343025",
+                    "outline": "#867464",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#3e6376",
+                    "surface": "#fff9ef",
+                    "inverse-primary": "#ffb86f",
+                    "inverse-on-surface": "#f8f0df",
+                    "primary-fixed-dim": "#ffb86f",
+                    "surface-dim": "#e1d9c9",
+                    "secondary-fixed-dim": "#b5cbca",
+                    "on-surface": "#1e1b11",
+                    "secondary-container": "#d1e7e6",
+                    "on-primary-fixed-variant": "#693c00",
+                    "secondary-fixed": "#d1e7e6",
+                    "on-surface-variant": "#534436",
+                    "on-primary-container": "#5d3400",
+                    "surface-tint": "#8a5100",
+                    "on-secondary-fixed-variant": "#374a4a",
+                    "background": "#fff9ef",
+                    "outline-variant": "#d9c3b0",
+                    "primary": "#8a5100",
+                    "on-secondary-fixed": "#0b1f1f",
+                    "primary-container": "#eb9633",
+                    "tertiary-container": "#88aec3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "lg": "48px",
+                    "margin-mobile": "16px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "xl": "80px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .custom-shape-hero {
+            border-radius: 200px 200px 0 200px;
+        }
+        .organic-border {
+            border: 2px solid #eb9633;
+            border-radius: 200px 200px 0 200px;
+        }
+        .bento-card {
+            background: linear-gradient(145deg, #fbf3e2, #eae2d1);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface/90 backdrop-blur-md shadow-sm flex justify-between items-center w-full px-margin-desktop py-base sticky top-0 z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-3xl" style="font-variation-settings: 'FILL' 1;">coffee</span>
+<span class="font-display text-headline-md font-bold text-on-surface">Kokin</span>
+</div>
+<nav class="hidden md:flex gap-gutter items-center font-label-lg text-label-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Our Menu</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Shop</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Testimonials</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</nav>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-sm">
+<button class="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+<button class="bg-transparent border border-on-surface text-on-surface font-label-lg px-6 py-2 hover:bg-on-surface hover:text-surface transition-colors rounded-none">
+                Book a Table
+            </button>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="bg-surface-container pt-xl pb-xl px-margin-desktop w-full relative overflow-hidden">
+<!-- Abstract background elements simulation -->
+<div class="absolute top-0 left-0 w-64 h-64 bg-surface-variant rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-xl items-center relative z-10">
+<div class="flex flex-col gap-lg">
+<div class="flex items-center gap-sm bg-surface-variant/50 w-fit px-4 py-2 rounded-full border border-outline-variant/30 backdrop-blur-sm">
+<div class="flex -space-x-2">
+<img alt="Customer" class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="A small circular portrait of a smiling young woman with dark hair, representing a happy cafe customer. Soft, natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVUE7s7pc8XKPJEgAB1X2hMQqwi6hRxtMAkp9mtMgMmarf5ffIz1d7MOS51UOF0uywD8agzgThaLR10p7wBz2QMKcyql7zt2AuPi5UoKcaH2XJEuza3klnM1kO0xcDhpLWLGOSgI-TrMeYdirO-m9L8tY6m1M-s4XP3Ov1bg7_lKnn6vWvFE53irngQO-sIrXa890hBKTfssjEJqAYq3xHTEhMrP3WFGnT3fwIgdZZF46s1j0opgPtyLF0a74u4Yu8vtnxCoTnTLE"/>
+<img alt="Customer" class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="A small circular portrait of a man with a slight smile, representing a happy cafe customer. Warm, natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2MwjHw7mtE4JQbQnyJZmhBd_p7uBvRlu0fINvOL3OKIhDdsGi75uzJ_7e_7khH0yJRxrZo-aC8077qKht-EsIlDPiKqCO785HV2uDuRZyD8L0WEwe2cLSZmLTxxp3bhKaJH_jVbJL14r_BHcTc7xXfnzmSyKIlm0P2JuiEL99t51Q89htvSCZuTgSe3gBt3L-jPHw1wvLCZHN9KkM9bOo4JUo83rfAT22oz7Ix4txWty_cO5PQMR1qzt7AwaCIeQmhKrGGXyjc_A"/>
+<img alt="Customer" class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="A small circular portrait of a woman looking relaxed, representing a happy cafe customer. Bright, clear lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuorG4zK4-Qt1L4BuZ-5DMsVxAhfwGgoEm2vT4eMWzInNCO_oZwhiCklnxEpy-ImLMQMxmYVojzROp09JvVTv_VZDK21i08RUfBU1n7ZYqrNlaKrHt8CE6OeewD5EaVoCvizGPrDsvxGEMB_sNkiE0wPzux5vMMEbki4Lr9LQ6hzhcMoxkBxBJcUFzdH6igRqHVREv8GGHsSzbIykiouVAxJvyfGjdfae1uWP3uxPgyejtt8BvzKpKLuk2SXKizUX0HuykzVLuND8"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">10,000+</span>
+<span class="font-label-md text-on-surface-variant">Happy Customers</span>
+</div>
+</div>
+<h1 class="font-display text-display text-on-surface leading-tight">
+                    The Perfect Blend of <br/> Aroma &amp; Ambiance
+                </h1>
+<p class="font-body-lg text-on-surface-variant max-w-md">
+                    We're committed to ethical sourcing and sustainable practices for a better coffee experience.
+                </p>
+<div>
+<button class="bg-primary-container text-on-surface font-label-lg px-8 py-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all">
+                        Explore Our Specials
+                    </button>
+</div>
+</div>
+<div class="relative w-full h-[600px] flex justify-end items-center">
+<div class="absolute w-[90%] h-[90%] organic-border -translate-x-4 translate-y-4"></div>
+<img alt="Coffee and Croissant" class="w-[90%] h-[90%] object-cover custom-shape-hero relative z-10" data-alt="A high-angle, premium lifestyle shot of a perfectly poured cappuccino in a dark ceramic cup, placed on a deep blue saucer next to a flaky, golden croissant. The scene is set on a wooden café table bathed in soft, warm, natural daylight. The overall aesthetic is sophisticated, organic, and inviting, perfectly capturing the minimalist and tactile modernism of a high-end coffee shop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYpwbfYwfzprwL-6tQkrgeFRF9u17xRbocRPmDNxe3-a_RMjVaqcjUGsSt9GvZLYjJvsA57iXNMW4bPDK1HMDLuR4q4OQrnN_YO_rp_rkYWZ5D0WuqsNQK2khR5Vb2v3hwITEe7Ny4uRA4GOitjjCmSpmrBH2vKe708du2rwCOkYHye25LEauV6r87rsL75XXoJcvdeUXfjIesEk0mOJAitDSx7ULnEHHvba5dx2p_r5mK2G8CQ_gf3tOrilp55t5yvNvXU5VHGx8"/>
+</div>
+</div>
+</section>
+<!-- Menu Section (Card based as requested) -->
+<section class="bg-surface py-xl px-margin-desktop w-full">
+<div class="max-w-7xl mx-auto flex flex-col gap-xl">
+<div class="text-center flex flex-col items-center gap-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Our Menu</h2>
+<p class="font-body-md text-on-surface-variant max-w-2xl">
+                    Welcome to Kokin. Here, we pride ourselves on offering a diverse selection of beverages and treats that cater to every taste.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-highest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex flex-col gap-4 group hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-48 rounded-xl overflow-hidden mb-2 relative">
+<img alt="Cold Brew" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up studio shot of a refreshing iced cold brew coffee served in a modern, condensation-covered glass. The beverage features a rich amber color fading into dark brown, set against a clean, neutral off-white background. The lighting is high-key and crisp, emphasizing the icy texture and premium quality of the drink." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdn2Y4K6kmyKGHJcZS-ptIYtdIfI40TKlIVWwCsStJQQbIhtdySXSQkpTDNqowroAuSfRJh-87rukHw0XrvvYcKJsUB36iZuhwflhGns6gjvWvOPvIRXkfCond9Gz2KNc4Yc7EsYo9NANgK9Pv7yPphpHBvRwKKhh7pWBdtBUKCRD4ht2S6PRV9QINI-iGmrM7cEj4Up9MmtdSvWCwuvUFHsGT6tJK7OVQBHxGMNmtgBnAKLPdrXGx3f2iZRsqCJadB6vpjRXNr_Q"/>
+</div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Cold Brew</h3>
+<span class="font-headline-md text-primary">$ 3.00</span>
+</div>
+<p class="font-body-md text-on-surface-variant flex-grow">Brewed slowly for a smooth, bold finish.</p>
+<button class="w-full mt-4 bg-transparent border border-on-surface text-on-surface font-label-lg py-3 hover:bg-on-surface hover:text-surface transition-colors">
+                        Book Product
+                    </button>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-highest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex flex-col gap-4 group hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-48 rounded-xl overflow-hidden mb-2 relative">
+<div class="absolute top-2 left-2 bg-primary-container text-on-primary-fixed font-label-md px-2 py-1 rounded-full z-10">New</div>
+<img alt="Latte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautiful top-down shot of a hot latte in a wide, shallow ceramic cup, featuring intricate rosetta latte art on the surface. The rich brown espresso contrasts elegantly with the pristine white microfoam. The setting is minimal, with a warm off-white surface beneath, highlighting the artisanal craftsmanship of the beverage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7a-Lan1QdixEVfDKKjfFZbbz6ONlq4ewGC8xXWVPsaX3q3Mm4VWFhbL9eVDoBZ6irRwA4JMRT7uKfHp-sE8SH2-aMIU5p6IA4SPkhp9ufmnnuKPEGsYPMgwreLUk8BhvwQCNHnjlVbaqdcFb3CfLYE9vmuiGrdpl7sB57CDzeGuv7QtdYdabN59LQSSECjuzK2oEuaRKTLCw3Gw6qrCTUSFvl4W8g6HF7BDmSMaCcedRxed8YqJqTTtxw62DbSQoyYT5UNGm8Nek"/>
+</div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Latte</h3>
+<span class="font-headline-md text-primary">$ 2.15</span>
+</div>
+<p class="font-body-md text-on-surface-variant flex-grow">Smooth and creamy classic espresso with steamed milk.</p>
+<button class="w-full mt-4 bg-transparent border border-on-surface text-on-surface font-label-lg py-3 hover:bg-on-surface hover:text-surface transition-colors">
+                        Book Product
+                    </button>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-highest rounded-2xl p-6 shadow-sm border border-outline-variant/30 flex flex-col gap-4 group hover:-translate-y-1 transition-transform duration-300">
+<div class="w-full h-48 rounded-xl overflow-hidden mb-2 relative">
+<img alt="Matcha Latte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of a vibrant green matcha latte served in a textured artisanal mug. The creamy foam on top shows a subtle swirl pattern. The scene is brightly lit with natural light, set against a soft, creamy background that complements the earthy tones of the tea. The mood is calm and organic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7mUjgjqCJu7XCjHlpsVqESWyAyGKPxT4FLIw1UYMRHgC3LbfC8S9npjfAEGPpsChBoLKWEP8Sutbdn7bc3EgEkGJqFqlZZonatVehA4glfG82nUwstkytSdBYYcHGqMbYUBR3jqWEiuGL6grCEI16dKgKdbexihyt6NVCR1JVlEiMP3S66Qan_Rcj7Jk0A9iZ4QoVh97z0kwBhdhazSHhGFJo_WLcSGfFu2mE_LjQLyw1sfSE1m24FEbUJGWpBX0pphyQmE4K8oA"/>
+</div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Matcha Latte</h3>
+<span class="font-headline-md text-primary">$ 1.80</span>
+</div>
+<p class="font-body-md text-on-surface-variant flex-grow">A creamy and vibrant green tea experience.</p>
+<button class="w-full mt-4 bg-transparent border border-on-surface text-on-surface font-label-lg py-3 hover:bg-on-surface hover:text-surface transition-colors">
+                        Book Product
+                    </button>
+</div>
+</div>
+<div class="flex justify-center mt-8">
+<button class="bg-primary-container text-on-surface font-label-lg px-8 py-3 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all flex items-center gap-2">
+                    View Full Menu <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Sustainability Section -->
+<section class="bg-surface-container-low py-xl px-margin-desktop w-full relative">
+<div class="max-w-7xl mx-auto flex flex-col gap-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-8">Our Commitment to Sustainability</h2>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-5 h-[500px] rounded-[40px] overflow-hidden border border-outline-variant/30">
+<img alt="Barista working" class="w-full h-full object-cover" data-alt="An atmospheric, slightly moody shot of a busy cafe interior viewed from behind the counter. Two baristas in aprons are focused on operating a high-end chrome espresso machine. The setting feels authentic and artisanal, with warm ambient lighting highlighting the tactile textures of wood, metal, and roasted coffee beans." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPzQM4geq0tqYzxfYBeHrwfytFM4MeUIML3sdHRW0Va3whm4HS14cDBj8R4nZ0qtopFozxHDvrEVpjaJqNAq6FQxJivi-35iJ5rMnO9zRv9BDrqgy3cawdu6W0AzwtlTCmI-IlTlRtpGTdzxFCaTWitASqjpp5boNWBsGCnKjMiBjjyM8CHRvr5vpIVyJC-x6nk3elDGliEfHw6j4Wp4UxyJ3eVSw3igoixHLYyzp9ST7LCZ6Kq3_z2XXSKSD0pPOifib8UdFuM4A"/>
+</div>
+<div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8 content-center pl-0 lg:pl-8">
+<!-- Feature 1 -->
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">eco</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-on-surface">Cozy Atmosphere</h4>
+<p class="font-body-md text-on-surface-variant">We are committed to eco-friendly practice, from using biodegradable materials to sourcing locally.</p>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">coffee_maker</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-on-surface">Artisanal Coffee</h4>
+<p class="font-body-md text-on-surface-variant">Our coffee is sourced from the finest regions around the world and roasted to perfection.</p>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">groups</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-on-surface">Community Engagement</h4>
+<p class="font-body-md text-on-surface-variant">We believe in giving back to our community through events, and local collaboration.</p>
+</div>
+<!-- Feature 4 -->
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">volunteer_activism</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-on-surface">Exceptional Service</h4>
+<p class="font-body-md text-on-surface-variant">Our friendly and knowledgeable staff are dedicated to providing you with the best service.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bestsellers Section (Glassmorphism/Bento feel) -->
+<section class="bg-surface py-xl px-margin-desktop w-full relative">
+<div class="max-w-7xl mx-auto flex flex-col gap-lg items-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Our Bestsellers</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+<!-- Product 1 -->
+<div class="bento-card rounded-2xl p-6 border border-outline-variant/50 flex flex-col items-center gap-4 relative overflow-hidden group">
+<div class="absolute top-4 left-4 bg-tertiary text-on-tertiary font-label-md px-3 py-1 rounded-full text-xs">Save 18%</div>
+<div class="w-full h-48 flex justify-center items-center py-4">
+<!-- Placeholder for packaging bag -->
+<div class="w-32 h-40 bg-surface rounded-md shadow-md border border-outline-variant/30 flex items-center justify-center text-on-surface-variant text-center p-2">
+<img alt="Coffee Bag" class="w-full h-full object-cover rounded-sm mix-blend-multiply" data-alt="A minimalist mockup of a sleek, matte coffee bean bag standing upright. The bag is a muted, sophisticated shade of earthy beige, set against a completely clean, light background. Soft, diffused lighting enhances the premium, tactile feel of the packaging material, aligning with a modern organic brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzPfb2qZ22ULwLAh6WgO5KvBkQAIUdb_CekaEoRWq7QAgHo4m-D4ANynjHSzlcOV8XK8rfvouB91fnG7ocKGRYwpPQixAq9frKrp_hqn4JCsN9WTqAFmBCg6th9V4Lsv5SPnAaMGD-eNKS-N35NX1W3j9OWIZo8JAKnWkRdBAvzI_Iwhi9HVcxjfPdp32MR9ftesGGwBpQKEghWWWhHMZTyMqlRU5JLiwL-6H5aMrzvtgrsyoyoYwQmXp2rgsnrfQGaLioH2cDVr0"/>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1 text-center">
+<h4 class="font-label-lg text-on-surface">Decaf Coffee Blend</h4>
+<div class="flex justify-center items-baseline gap-2">
+<span class="font-headline-md text-on-surface">$ 16.99 USD</span>
+<span class="font-body-md text-on-surface-variant line-through text-sm">$ 17.99 USD</span>
+</div>
+</div>
+<button class="w-full mt-2 bg-transparent border border-on-surface text-on-surface font-label-lg py-2 hover:bg-primary-container hover:border-primary-container hover:text-on-surface transition-all flex justify-center items-center gap-2">
+                        Add To Cart <span class="material-symbols-outlined text-sm">shopping_bag</span>
+</button>
+</div>
+<!-- Product 2 -->
+<div class="bento-card rounded-2xl p-6 border border-outline-variant/50 flex flex-col items-center gap-4 relative overflow-hidden group">
+<div class="w-full h-48 flex justify-center items-center py-4">
+<div class="w-32 h-40 bg-surface rounded-md shadow-md border border-outline-variant/30 flex items-center justify-center text-on-surface-variant text-center p-2">
+<img alt="Coffee Bag" class="w-full h-full object-cover rounded-sm mix-blend-multiply hue-rotate-90" data-alt="A minimalist mockup of a sleek, matte coffee bean bag standing upright. The bag is a muted, deep teal color, set against a completely clean, light background. Soft, diffused lighting enhances the premium, tactile feel of the packaging material, aligning with a modern organic brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5teSNwa_f2ry_2lBxKXkcfoCjUcv4mh35iv2ty-edNOKEryMKQeh1JWKBe98tKTSuifuOA39xZm0PdC3d6rmLTWpwxWv5De6lUcCipno1k6uGxnr4VZ50byZPrvQMlyFm5sjScp1dJLU4EeLc3_ErhZDjzgPe28hfQxBtmbxupGMLJ6UVhehkoNk-GRa1nWIlXaEhIO9o0qdySOL1uyi9HANCcqriN42GMAMt2S9CmV5WHjV7V2LzhODEYxT87ZWJKC-OP1tZQLI"/>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1 text-center">
+<h4 class="font-label-lg text-on-surface">English Breakfast Tea</h4>
+<span class="font-headline-md text-on-surface">$ 21.55 USD</span>
+</div>
+<button class="w-full mt-2 bg-transparent border border-on-surface text-on-surface font-label-lg py-2 hover:bg-primary-container hover:border-primary-container hover:text-on-surface transition-all flex justify-center items-center gap-2">
+                        Add To Cart <span class="material-symbols-outlined text-sm">shopping_bag</span>
+</button>
+</div>
+<!-- Product 3 -->
+<div class="bento-card rounded-2xl p-6 border border-outline-variant/50 flex flex-col items-center gap-4 relative overflow-hidden group">
+<div class="w-full h-48 flex justify-center items-center py-4">
+<div class="w-32 h-40 bg-surface rounded-md shadow-md border border-outline-variant/30 flex items-center justify-center text-on-surface-variant text-center p-2">
+<img alt="Coffee Bag" class="w-full h-full object-cover rounded-sm mix-blend-multiply hue-rotate-180" data-alt="A minimalist mockup of a sleek, matte coffee bean bag standing upright. The bag is a rich, warm ochre color, set against a completely clean, light background. Soft, diffused lighting enhances the premium, tactile feel of the packaging material, aligning with a modern organic brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgeffRgSzkldRmAJFhymLRN0sJ_CqTiwvFnNV1PwKmjcAwCg8EJXsd1_71FLCcaXJf0OLf-akvWKQ-mpwvnQLM6uJI8u1LBYFSiYeYOpiGm2EcG5mVL-LToLJlhZnUo6lAGxFZDzQxcwdYrxY3-AyFOY3Cdf6NqJV9fd4FIUHNQVPyYFurd8TKePNumbpgqbnMIk4VHD6P_OcaMCOYfGwPVU3sEYEPi3chFD4Uve5PXMZ2cj8X3u5l7SOkkXdgJ4bbgtFM2QebjeA"/>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1 text-center">
+<h4 class="font-label-lg text-on-surface">Premium Ground Coffee</h4>
+<span class="font-headline-md text-on-surface">$ 15.99 USD</span>
+</div>
+<button class="w-full mt-2 bg-transparent border border-on-surface text-on-surface font-label-lg py-2 hover:bg-primary-container hover:border-primary-container hover:text-on-surface transition-all flex justify-center items-center gap-2">
+                        Add To Cart <span class="material-symbols-outlined text-sm">shopping_bag</span>
+</button>
+</div>
+<!-- Product 4 -->
+<div class="bento-card rounded-2xl p-6 border border-outline-variant/50 flex flex-col items-center gap-4 relative overflow-hidden group">
+<div class="w-full h-48 flex justify-center items-center py-4">
+<div class="w-32 h-40 bg-surface rounded-md shadow-md border border-outline-variant/30 flex items-center justify-center text-on-surface-variant text-center p-2">
+<img alt="Coffee Bag" class="w-full h-full object-cover rounded-sm mix-blend-multiply hue-rotate-[270deg]" data-alt="A minimalist mockup of a sleek, matte coffee bean bag standing upright. The bag is a deep, dark slate color, set against a completely clean, light background. Soft, diffused lighting enhances the premium, tactile feel of the packaging material, aligning with a modern organic brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrWsZ1reNJSe4V8658mxG8L4MfB9DkSU7RbvjRpARZnv2GyjeZ-XNQIpZP6BfrDq2TgaLvbzk2PUqHtP-732o00QKIbjwtzK8LTWAFZ-Ile-wweKeBfbW3wO2qdX7UkLh3qgmf9xHkzhSG8bDXXj41CKrB-31RtsY0nWErswZSXh_80YoqKh0y-SHhMtVtRfCTeGnhZyPrCapF0Utj9DJ2DiXMX_5B02-9eSL5wa_j2TCYldZRigjp0Y6BzS9lGFLxe40KDD4nzsc"/>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1 text-center">
+<h4 class="font-label-lg text-on-surface">Espresso Beans</h4>
+<span class="font-headline-md text-on-surface">$ 14.99 USD</span>
+</div>
+<button class="w-full mt-2 bg-transparent border border-on-surface text-on-surface font-label-lg py-2 hover:bg-primary-container hover:border-primary-container hover:text-on-surface transition-all flex justify-center items-center gap-2">
+                        Add To Cart <span class="material-symbols-outlined text-sm">shopping_bag</span>
+</button>
+</div>
+</div>
+<div class="mt-8">
+<button class="bg-transparent border border-on-surface text-on-surface font-label-lg px-6 py-2 hover:bg-on-surface hover:text-surface transition-colors rounded-none flex items-center gap-2">
+                    Visit Our Shop <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="bg-surface-container py-xl px-margin-desktop w-full relative overflow-hidden">
+<div class="max-w-7xl mx-auto flex flex-col items-center text-center gap-lg">
+<div class="max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">What Our Guests Have To Say</h2>
+<p class="font-body-md text-on-surface-variant">Read genuine reviews from our satisfied guests and see how our exceptional coffee, delicious food, and welcoming atmosphere have made their experiences memorable.</p>
+</div>
+<button class="bg-primary-container text-on-surface font-label-lg px-8 py-3 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all">
+                Share Your Feedback
+            </button>
+<div class="flex gap-6 overflow-x-auto w-full pb-8 pt-4 snap-x no-scrollbar mt-8">
+<!-- Review 1 -->
+<div class="min-w-[300px] md:min-w-[400px] bg-surface rounded-[32px] p-8 border border-on-surface shadow-[4px_4px_0px_0px_#182B2B] flex flex-col gap-6 snap-center text-left relative">
+<span class="material-symbols-outlined text-4xl text-on-surface/20 absolute top-6 left-6" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="font-body-md text-on-surface relative z-10 pt-4">"Best coffee in town! The atmosphere is cozy and the baristas are super friendly. Highly recommend the iced latte!"</p>
+<div class="flex items-center gap-4 mt-auto pt-4 border-t border-outline-variant/30">
+<img alt="Sarah M" class="w-12 h-12 rounded-full object-cover" data-alt="A small circular portrait of a woman looking relaxed, representing a happy cafe customer. Bright, clear lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClvrlpQ5gBvzEZYx1Sp5Z8rmoAByN01iJNtKUHmV_lrWBAUCJMl1sGvxbdKEgHpCT3HUHHcA1yAm2ULZk5UmXc2321IzojPpAoFciD5I3LxpvtPS7DnW29oTe2OexNzOT-kD_GZQDF0CGWcbGFJskXoifjZ44Qu1l1Y7QyRH1auUdj4oqlKih5cALTn_lb6B-BRi7Zoit4U3L13cBM2WdkxVs_KVFQwZJDPuZ_mkANLtmziRX0vpZpneOm8wDKoCo9n7Xy6QMPqF4"/>
+<span class="font-label-lg text-on-surface">Sarah M</span>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="min-w-[300px] md:min-w-[400px] bg-surface rounded-[32px] p-8 border border-on-surface shadow-[4px_4px_0px_0px_#182B2B] flex flex-col gap-6 snap-center text-left relative">
+<span class="material-symbols-outlined text-4xl text-on-surface/20 absolute top-6 left-6" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="font-body-md text-on-surface relative z-10 pt-4">"Love this place for a quick coffee break. The service is fast and efficient, and the pastries are delicious. Perfect for a mid-afternoon pick-me-up."</p>
+<div class="flex items-center gap-4 mt-auto pt-4 border-t border-outline-variant/30">
+<img alt="David L" class="w-12 h-12 rounded-full object-cover" data-alt="A small circular portrait of a man with a slight smile, representing a happy cafe customer. Warm, natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbRGH1NKNqTxPa0dzQW8M7rjBlpb0LsQFPatM4QyZDNaiU_u7UDnGFt79Qb0M962nuNpqR3iDDo08YWhlLtKdpZXWSw7imZ_CnaP4wxhmpkNYUPVxckr4LkegCfXwctQL6j7zvWiPsd0MO9vWFl7B01AbnRWMyET2E5cT0fmgcDyts7IBsDkLJN0IhfD-1_ZRM65mnkjEH5tg8PBM5L6Dkpc9eNVswKe0AXF8Q_l0TksaeEDza0AyezjY_uDD4qaROspD4Dp7dUKw"/>
+<span class="font-label-lg text-on-surface">David L.</span>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="min-w-[300px] md:min-w-[400px] bg-surface rounded-[32px] p-8 border border-on-surface shadow-[4px_4px_0px_0px_#182B2B] flex flex-col gap-6 snap-center text-left relative">
+<span class="material-symbols-outlined text-4xl text-on-surface/20 absolute top-6 left-6" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="font-body-md text-on-surface relative z-10 pt-4">"Kokin is my go-to spot for catching up with friends. The vibe is relaxed and the coffee is always on point. Great local spot!"</p>
+<div class="flex items-center gap-4 mt-auto pt-4 border-t border-outline-variant/30">
+<img alt="Maria S" class="w-12 h-12 rounded-full object-cover" data-alt="A small circular portrait of a smiling young woman with dark hair, representing a happy cafe customer. Soft, natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVbexlMeZjYHW-jVFLY73kQHbsp0AM95cc4VUstnmF0TF4ldbnoMaraa0UVO9TauSpPPDoq7LjXBOtuGOKn2HdQ52cP_oDbf5G5hqrd2qdgl0_gN-9rXcet_zCh2uGXPnjNWwmtQNNZB_MQZ3jkM34f_X3jDCnBrgPpFuhc4J_o9D6hRbqyurF7FKcSACR8GyXIgWOWRE_XfkGIFi1CFjS2PmHzXK7gPWYBdSNE8L4bzvil1utsEYPAB-t0dBunviL6kJLNYNIMFw"/>
+<span class="font-label-lg text-on-surface">Maria S</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 justify-end w-full max-w-7xl">
+<button class="w-10 h-10 rounded-full border border-on-surface flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-on-surface bg-primary-container text-on-surface flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Book A Table Section (Redesigned) -->
+<section class="bg-surface py-xl px-margin-desktop w-full relative">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div class="flex flex-col gap-8 w-full max-w-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Book A Table</h2>
+<form class="flex flex-col gap-6 w-full">
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors">
+<label class="w-24 font-label-lg text-on-surface">Name:</label>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0" placeholder="John" type="text"/>
+</div>
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors">
+<label class="w-24 font-label-lg text-on-surface">Email:</label>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0" placeholder="john@example.com" type="email"/>
+</div>
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors">
+<label class="w-24 font-label-lg text-on-surface">Date:</label>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0" placeholder="MM/DD/YYYY" type="text"/>
+</div>
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors">
+<label class="w-24 font-label-lg text-on-surface">Time:</label>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0" placeholder="HH/MM" type="text"/>
+</div>
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors">
+<label class="w-24 font-label-lg text-on-surface">Phone:</label>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0" placeholder="+1 (555) 123-4567" type="tel"/>
+</div>
+<div class="flex items-center border-b border-on-surface/50 py-2 focus-within:border-on-surface transition-colors relative">
+<label class="w-24 font-label-lg text-on-surface">Guests:</label>
+<select class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md px-0 appearance-none">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4+</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 pointer-events-none text-on-surface-variant">unfold_more</span>
+</div>
+<button class="mt-4 w-full bg-primary-container text-on-surface font-label-lg py-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all" type="button">
+                        Submit
+                    </button>
+</form>
+</div>
+<div class="h-[600px] w-full rounded-[40px] overflow-hidden rounded-bl-none">
+<img alt="People gathering" class="w-full h-full object-cover" data-alt="A top-down view of a lively café table where three people are bringing their coffee cups together in a toast. The cups contain lattes with beautiful rosetta latte art. The hands belong to diverse individuals, emphasizing community and warmth. The tabletop is dark wood, and the lighting is bright and inviting, creating a social and premium atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPXw9A4q9YfO6kE8pgRpUiGdKMlNx04c2qwDliC2scHsTrMrVVLvjzHA4KW1isLKREtlc3SOt7pIHeetj4uyrIN3Y2O1MlGFxFKR64O_iXoZ0lXMLfkRN_LsbFVD0PG8Mwm4CPCe1QioeNzl65dDd8oKeO6A7vIcP-cYAlrQulYqBDzbzqQZj5RjqCfbjbAS8vyc_LhjpsHoth-EFdvSTvnpRBV4lmKx2KDr4Gj1YwMvBx9RQIi2-Kbov8R762UsyaL5LpFYRlI_w"/>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-dim grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-xl w-full border-t border-surface-container-high dark:border-surface-container">
+<!-- Column 1: Newsletter -->
+<div class="flex flex-col gap-4">
+<h4 class="font-headline-md text-on-surface">Stay Up to Date</h4>
+<div class="flex w-full mt-2">
+<input class="w-full bg-surface border border-on-surface px-4 py-2 text-on-surface font-body-md outline-none focus:border-primary" placeholder="john@example.com" type="email"/>
+<button class="bg-primary-container text-on-surface border border-l-0 border-on-surface px-4 font-label-lg hover:opacity-90 transition-opacity">Submit</button>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm mt-2">Subscribe to receive communication about our latest products, discount offerings and stories.</p>
+</div>
+<!-- Column 2: Hours/Location -->
+<div class="flex flex-col gap-4 md:pl-8">
+<h4 class="font-label-lg text-on-surface">Opening Hours</h4>
+<p class="font-body-md text-on-surface-variant text-sm">Monday - Friday: 07:00 AM - 08:00 PM<br/>Saturday - Sunday: 07:00 AM - 08:00 PM</p>
+<h4 class="font-label-lg text-on-surface mt-4">Location</h4>
+<p class="font-body-md text-on-surface-variant text-sm">Uptown branch, 456 Uptown Avenue,<br/>Uptown City, 20002</p>
+</div>
+<!-- Column 3: Links -->
+<div class="flex gap-12 md:col-span-2 md:justify-end">
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-on-surface mb-2">Home</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Our Menu</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Shop</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Testimonials</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">About</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-on-surface mb-2">Orders &amp; Support</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">FAQ</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-on-surface mb-2">Social</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Instagram</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Facebook</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Twitter</a>
+</div>
+</div>
+<!-- Bottom Row -->
+<div class="md:col-span-4 flex flex-col md:flex-row justify-between items-center pt-8 mt-8 border-t border-outline-variant/30 w-full">
+<span class="font-body-md text-body-md text-on-surface-variant">© 2025 Kokin Coffee. All rights reserved.</span>
+<div class="flex gap-4 mt-4 md:mt-0">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:underline decoration-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>
