@@ -103,14 +103,14 @@
   --spacing-gutter: 24px;
   --spacing-md: 24px;
   
-  --font-headline-md: "Inter", var(--font-sans);
-  --font-label-lg: "Inter", var(--font-sans);
-  --font-headline-lg-mobile: "Inter", var(--font-sans);
-  --font-body-lg: "Inter", var(--font-sans);
-  --font-display: "Inter", var(--font-sans);
-  --font-headline-lg: "Inter", var(--font-sans);
-  --font-label-md: "Inter", var(--font-sans);
-  --font-body-md: "Inter", var(--font-sans);
+  --font-headline-md: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-label-lg: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-headline-lg-mobile: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body-lg: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-headline-lg: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-label-md: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body-md: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --text-headline-md: 24px;
   --text-headline-md--line-height: 1.3;

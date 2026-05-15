@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Leaf, Coffee, Users, HeartHandshake } from 'lucide-react';
 
 export default function SustainabilitySection() {
   return (
@@ -13,7 +14,7 @@ export default function SustainabilitySection() {
             {/* Feature 1 */}
             <div className="flex flex-col gap-4">
               <div className="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>eco</span>
+                <Leaf />
               </div>
               <h4 className="font-headline-md text-[20px] text-on-surface">Cozy Atmosphere</h4>
               <p className="font-body-md text-on-surface-variant">We are committed to eco-friendly practice, from using biodegradable materials to sourcing locally.</p>
@@ -21,7 +22,7 @@ export default function SustainabilitySection() {
             {/* Feature 2 */}
             <div className="flex flex-col gap-4">
               <div className="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>coffee_maker</span>
+                <Coffee />
               </div>
               <h4 className="font-headline-md text-[20px] text-on-surface">Artisanal Coffee</h4>
               <p className="font-body-md text-on-surface-variant">Our coffee is sourced from the finest regions around the world and roasted to perfection.</p>
@@ -29,7 +30,7 @@ export default function SustainabilitySection() {
             {/* Feature 3 */}
             <div className="flex flex-col gap-4">
               <div className="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>groups</span>
+                <Users />
               </div>
               <h4 className="font-headline-md text-[20px] text-on-surface">Community Engagement</h4>
               <p className="font-body-md text-on-surface-variant">We believe in giving back to our community through events, and local collaboration.</p>
@@ -37,7 +38,7 @@ export default function SustainabilitySection() {
             {/* Feature 4 */}
             <div className="flex flex-col gap-4">
               <div className="w-12 h-12 rounded-full border border-primary-container flex items-center justify-center text-primary-container">
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>volunteer_activism</span>
+                <HeartHandshake />
               </div>
               <h4 className="font-headline-md text-[20px] text-on-surface">Exceptional Service</h4>
               <p className="font-body-md text-on-surface-variant">Our friendly and knowledgeable staff are dedicated to providing you with the best service.</p>
