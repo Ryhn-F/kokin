@@ -33,7 +33,7 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/product");
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`);
       setProducts(Array.isArray(res.data) ? res.data : res.data.data || []);
     } catch (err) {
       console.error(err);
@@ -77,7 +77,7 @@ export default function ProductsPage() {
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:3000/product/${id}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/${id}`);
         fetchProducts();
       } catch (err) {
         alert("Failed to delete product");
@@ -97,7 +97,7 @@ export default function ProductsPage() {
           description: formData.description,
           image_url: formData.image_url,
         };
-        await axios.put(`http://localhost:3000/product/${editingId}`, payload);
+        await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/${editingId}`, payload);
       } else {
         const createData = new FormData();
         createData.append("name", formData.name);
@@ -111,7 +111,7 @@ export default function ProductsPage() {
 
         const token = localStorage.getItem("token") || ""; // Optional token handling if needed
         await axios.post(
-          "http://localhost:3000/product/create-product",
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/create-product`,
           createData,
           {
             headers: {

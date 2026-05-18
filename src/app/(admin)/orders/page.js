@@ -28,7 +28,7 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/order");
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/order`);
       setOrders(Array.isArray(res.data) ? res.data : res.data.data || []);
     } catch (error) {
       console.error(error);
@@ -44,7 +44,7 @@ export default function OrdersPage() {
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this order?")) {
       try {
-        await axios.delete(`http://localhost:3000/order/${id}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/order/${id}`);
         fetchOrders();
       } catch (error) {
         console.error(error);
@@ -56,7 +56,7 @@ export default function OrdersPage() {
   const handleUpdateStatus = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/order/${editingOrder.id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/order/${editingOrder.id}`, {
         status: editStatus,
       });
       setIsEditModalOpen(false);

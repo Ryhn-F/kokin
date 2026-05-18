@@ -19,7 +19,7 @@ export default function SeatsPage() {
   const fetchSeats = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/seat");
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/seat`);
       setSeats(Array.isArray(res.data) ? res.data : (res.data.data || []));
     } catch (err) {
       console.error(err);
@@ -51,7 +51,7 @@ export default function SeatsPage() {
   const handleDelete = async (id) => {
     if (confirm("Delete this seat?")) {
       try {
-        await axios.delete(`http://localhost:3000/seat/${id}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/seat/${id}`);
         fetchSeats();
       } catch (err) {
         alert("Failed to delete");
@@ -69,9 +69,9 @@ export default function SeatsPage() {
       };
 
       if (editingId) {
-        await axios.put(`http://localhost:3000/seat/${editingId}`, payload);
+        await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/seat/${editingId}`, payload);
       } else {
-        await axios.post("http://localhost:3000/seat", payload);
+        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/seat`, payload);
       }
       setIsModalOpen(false);
       fetchSeats();

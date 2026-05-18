@@ -16,7 +16,7 @@ export default function MenuSection() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/product");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`);
         let productsData = [];
         if (Array.isArray(response.data)) {
           productsData = response.data;

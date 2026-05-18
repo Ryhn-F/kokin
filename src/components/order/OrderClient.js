@@ -41,7 +41,7 @@ export default function OrderClient() {
         setLoading(true);
         // Fetch Seats
         try {
-          const seatRes = await axios.get("http://localhost:3000/seat");
+          const seatRes = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/seat`);
           const fetchedSeats = Array.isArray(seatRes.data) ? seatRes.data : (seatRes.data?.data || []);
           setSeats(fetchedSeats);
         } catch (err) {
@@ -50,7 +50,7 @@ export default function OrderClient() {
 
         // Fetch products for selection
         try {
-          const prodRes = await axios.get("http://localhost:3000/product");
+          const prodRes = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`);
           let allProducts = [];
           if (Array.isArray(prodRes.data)) allProducts = prodRes.data;
           else if (prodRes.data && Array.isArray(prodRes.data.data)) allProducts = prodRes.data.data;
@@ -145,7 +145,7 @@ export default function OrderClient() {
     }
 
     try {
-      await axios.post("http://localhost:3000/order", payload);
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/order`, payload);
       setSubmitStatus("success");
       setCartItems([]);
       localStorage.removeItem("kokin_cart");

@@ -16,7 +16,7 @@ export default function TestimonialsSection() {
   const fetchTestimonials = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/testimonial");
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/testimonial`);
       // Handle different wrapper types to be safe
       if (response.data && response.data.data) {
         setTestimonials(response.data.data);
@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
 
     try {
       setSubmitLoading(true);
-      await axios.post("http://localhost:3000/testimonial", formData);
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/testimonial`, formData);
       setIsModalOpen(false);
       setFormData({ name: "", message: "" });
       fetchTestimonials(); // Refresh the list

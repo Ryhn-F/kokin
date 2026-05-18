@@ -32,7 +32,7 @@ export default function ProductDetailClient() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/product/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/${id}`);
         if (response.data && response.data.data) {
           setProduct(response.data.data);
         } else if (response.data) {
@@ -40,7 +40,7 @@ export default function ProductDetailClient() {
         }
 
         // Fetch recommendations
-        const allRes = await axios.get(`http://localhost:3000/product`);
+        const allRes = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`);
         let allProducts = [];
         if (Array.isArray(allRes.data)) allProducts = allRes.data;
         else if (allRes.data && Array.isArray(allRes.data.data))
