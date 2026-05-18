@@ -10,7 +10,6 @@ import Footer from "@/components/homepage/Footer";
 export default function Home() {
   return (
     <div className="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen w-full flex flex-col">
-      <TopNavBar />
       <main className="flex-grow flex flex-col w-full">
         <HeroSection />
         <MenuSection />
