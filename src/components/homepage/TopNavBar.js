@@ -14,37 +14,39 @@ export default function TopNavBar() {
       <nav className="hidden md:flex gap-gutter items-center font-label-lg text-label-lg">
         <Link
           className="text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
+          href="/"
+        >
+          Home
+        </Link>
+
+        <Link
+          className="text-on-surface-variant hover:text-primary transition-colors"
+          href="/menu"
         >
           Our Menu
         </Link>
+
         <Link
           className="text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
-        >
-          Shop
-        </Link>
-        <Link
-          className="text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
+          href="/#testimonials"
         >
           Testimonials
         </Link>
         <Link
           className="text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
+          href="/about"
         >
           About
         </Link>
       </nav>
       <div className="flex items-center gap-md">
         <div className="hidden md:flex items-center gap-sm">
-          <button className="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2">
-            <Search size={24} />
-          </button>
-          <button className="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2">
+          <Link
+            href="/order"
+            className="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2"
+          >
             <ShoppingBag size={24} />
-          </button>
+          </Link>
         </div>
         <Button
           variant="outline"

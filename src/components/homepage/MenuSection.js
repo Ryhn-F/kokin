@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Loader2 } from "lucide-react";
 import axios from "axios";
 
 export default function MenuSection() {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,6 +78,18 @@ export default function MenuSection() {
     fetchProducts();
   }, []);
 
+  const handleBookProduct = (product) => {
+    const cart = JSON.parse(localStorage.getItem("kokin_cart") || "[]");
+    const existing = cart.find((item) => item.id === product.id);
+    if (existing) {
+      existing.cartQuantity += 1;
+    } else {
+      cart.push({ ...product, cartQuantity: 1 });
+    }
+    localStorage.setItem("kokin_cart", JSON.stringify(cart));
+    router.push("/order");
+  };
+
   return (
     <section className="bg-surface py-xl px-margin-desktop w-full">
       <div className="max-w-7xl mx-auto flex flex-col gap-xl">
@@ -131,6 +145,7 @@ export default function MenuSection() {
                     `Enjoy our delicious ${product.name}, crafted with the finest ingredients.`}
                 </p>
                 <Button
+                  onClick={() => handleBookProduct(product)}
                   variant="outline"
                   className="w-full mt-4 bg-transparent text-lg border-on-surface text-on-surface font-label-lg py-6 hover:bg-on-surface hover:text-surface transition-colors rounded-none"
                 >

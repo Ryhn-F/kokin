@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, Search } from "lucide-react";
 import axios from "axios";
 
 export default function ProductCatalog() {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = ["All", "Coffee", "Non Coffee", "Others"];
 
@@ -96,12 +99,30 @@ export default function ProductCatalog() {
     fetchProducts();
   }, []);
 
-  const filteredProducts =
-    activeCategory === "All"
-      ? products
-      : products.filter(
-          (p) => p.category?.toLowerCase() === activeCategory.toLowerCase(),
-        );
+  const handleBookProduct = (product) => {
+    const cart = JSON.parse(localStorage.getItem("kokin_cart") || "[]");
+    const existing = cart.find((item) => item.id === product.id);
+    if (existing) {
+      existing.cartQuantity += 1;
+    } else {
+      cart.push({ ...product, cartQuantity: 1 });
+    }
+    localStorage.setItem("kokin_cart", JSON.stringify(cart));
+    router.push("/order");
+  };
+
+  const filteredProducts = products.filter((p) => {
+    const matchesCategory =
+      activeCategory === "All" ||
+      p.category?.toLowerCase() === activeCategory.toLowerCase();
+
+    const searchLower = searchQuery.toLowerCase();
+    const matchesSearch =
+      p.name?.toLowerCase().includes(searchLower) ||
+      p.description?.toLowerCase().includes(searchLower);
+
+    return matchesCategory && matchesSearch;
+  });
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("id-ID", {
@@ -115,6 +136,27 @@ export default function ProductCatalog() {
   return (
     <section className="bg-surface py-xl px-margin-desktop w-full min-h-[600px] z-10 relative">
       <div className="max-w-7xl mx-auto flex flex-col gap-lg">
+        {/* Header & Search */}
+        <div className="flex flex-col gap-6 pt-8 pb-4">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-on-surface">
+            Let&apos;s get started with{" "}
+            <span className="text-primary italic">coffee</span>
+          </h1>
+          <div className="relative  w-full">
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+              size={20}
+            />
+            <input
+              type="text"
+              placeholder="Search for coffee, treats, or anything..."
+              className="w-full pl-12 pr-6 py-4 rounded-full bg-surface-container border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-lg"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
+
         {/* Category Filter */}
         <div className="sticky top-0 z-30 bg-surface/80 backdrop-blur-md py-4 -mx-margin-desktop px-margin-desktop md:mx-0 md:px-0">
           <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
@@ -176,10 +218,10 @@ export default function ProductCatalog() {
                   <span className="font-headline-md text-on-surface">
                     {formatPrice(product.price)}
                   </span>
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.preventDefault();
-                      // Add to cart logic here
+                      handleBookProduct(product);
                     }}
                     className="w-12 h-12 rounded-full bg-surface text-on-surface border border-outline-variant/50 flex justify-center items-center group-hover:bg-primary group-hover:text-on-primary group-hover:border-primary transition-all duration-300 shadow-sm"
                   >
@@ -213,7 +255,7 @@ export default function ProductCatalog() {
             <h3 className="font-headline-md text-on-surface mb-2">
               No products found
             </h3>
-            <p className="font-body-md text-on-surface-variant text-center max-w-md">
+            <p className="font-body-md text-on-surface-variant text-center ">
               We couldn&apos;t find any products in the &quot;{activeCategory}
               &quot; category. Try selecting another category.
             </p>

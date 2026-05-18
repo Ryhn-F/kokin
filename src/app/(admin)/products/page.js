@@ -1,178 +1,398 @@
 "use client";
-
-import { useState } from "react";
-import { Plus, Edit2, Trash2, Search, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Search,
+  Plus,
+  Edit,
+  Trash2,
+  X,
+  Image as ImageIcon,
+  Coffee,
+  Filter,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([
-    { id: 1, name: "Espresso", category: "Coffee", price: 3.50, stock: 120 },
-    { id: 2, name: "Latte", category: "Coffee", price: 4.50, stock: 85 },
-    { id: 3, name: "Croissant", category: "Pastry", price: 3.00, stock: 40 },
-    { id: 4, name: "Green Tea", category: "Tea", price: 3.00, stock: 60 },
-  ]);
-
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null);
-  const [formData, setFormData] = useState({ name: "", category: "", price: "", stock: "" });
+  const [editingId, setEditingId] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
-  const handleOpenModal = (product = null) => {
-    if (product) {
-      setEditingProduct(product);
-      setFormData(product);
-    } else {
-      setEditingProduct(null);
-      setFormData({ name: "", category: "", price: "", stock: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "Coffee",
+    price: "",
+    stock: "",
+    description: "",
+    image_url: "",
+  });
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("http://localhost:3000/product");
+      setProducts(Array.isArray(res.data) ? res.data : res.data.data || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const openAdd = () => {
+    setEditingId(null);
+    setFormData({
+      name: "",
+      category: "Coffee",
+      price: "",
+      stock: "",
+      description: "",
+      image_url: "",
+    });
+    setImageFile(null);
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingProduct(null);
+  const openEdit = (prod) => {
+    setEditingId(prod.id);
+    setFormData({
+      name: prod.name,
+      category: prod.category,
+      price: prod.price,
+      stock: prod.stock,
+      description: prod.description || "",
+      image_url: prod.image_url || "",
+    });
+    setImageFile(null);
+    setIsModalOpen(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleDelete = async (id) => {
+    if (confirm("Are you sure you want to delete this product?")) {
+      try {
+        await axios.delete(`http://localhost:3000/product/${id}`);
+        fetchProducts();
+      } catch (err) {
+        alert("Failed to delete product");
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingProduct) {
-      setProducts(products.map(p => p.id === editingProduct.id ? { ...formData, id: p.id } : p));
-    } else {
-      setProducts([...products, { ...formData, id: Date.now() }]);
+    try {
+      if (editingId) {
+        const payload = {
+          name: formData.name,
+          category: formData.category,
+          price: Number(formData.price),
+          stock: Number(formData.stock),
+          description: formData.description,
+          image_url: formData.image_url,
+        };
+        await axios.put(`http://localhost:3000/product/${editingId}`, payload);
+      } else {
+        const createData = new FormData();
+        createData.append("name", formData.name);
+        createData.append("category", formData.category);
+        createData.append("price", Number(formData.price));
+        createData.append("stock", Number(formData.stock));
+        createData.append("description", formData.description);
+        if (imageFile) {
+          createData.append("image", imageFile);
+        }
+
+        const token = localStorage.getItem("token") || ""; // Optional token handling if needed
+        await axios.post(
+          "http://localhost:3000/product/create-product",
+          createData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              ...(token && { Authorization: `Bearer ${token}` }),
+            },
+          },
+        );
+      }
+      setIsModalOpen(false);
+      fetchProducts();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save product");
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
-    if(confirm("Are you sure you want to delete this product?")) {
-      setProducts(products.filter(p => p.id !== id));
-    }
-  };
+  const formatPrice = (p) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(p);
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 min-h-[80vh]">
-      <div className="flex justify-between items-center mb-8">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface p-6 rounded-[2rem] shadow-sm border border-outline-variant/30">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Products Management</h2>
-          <p className="text-gray-500 text-sm mt-1">Manage your coffee shop products inventory</p>
+          <h2 className="font-display text-3xl text-on-surface">Products</h2>
+          <p className="font-body-md text-on-surface-variant mt-1">
+            Manage your menu items
+          </p>
         </div>
-        <button 
-          onClick={() => handleOpenModal()}
-          className="bg-[#1E3023] hover:bg-[#2a4231] text-white px-5 py-2.5 rounded-xl font-medium transition-colors flex items-center gap-2"
-        >
-          <Plus size={18} />
-          <span>Add Product</span>
-        </button>
+        <div className="flex gap-3 w-full sm:w-auto">
+          <div className="relative flex-grow sm:flex-grow-0">
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="w-full sm:w-64 pl-12 pr-4 py-3 bg-surface-container border border-outline-variant/50 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <Button
+            onClick={openAdd}
+            className="rounded-full bg-primary text-on-primary px-6 h-[46px] shadow-sm hover:-translate-y-0.5 transition-transform w-full sm:w-auto"
+          >
+            <Plus size={18} className="mr-2" /> Add Product
+          </Button>
+        </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-gray-100 text-gray-500 text-sm font-medium">
-              <th className="py-4 px-4">Product Name</th>
-              <th className="py-4 px-4">Category</th>
-              <th className="py-4 px-4">Price</th>
-              <th className="py-4 px-4">Stock</th>
-              <th className="py-4 px-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                <td className="py-4 px-4 font-medium text-gray-800">{product.name}</td>
-                <td className="py-4 px-4 text-gray-500">
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium">{product.category}</span>
-                </td>
-                <td className="py-4 px-4 text-gray-600">${Number(product.price).toFixed(2)}</td>
-                <td className="py-4 px-4 text-gray-600">{product.stock}</td>
-                <td className="py-4 px-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button onClick={() => handleOpenModal(product)} className="p-2 text-gray-400 hover:text-[#1E3023] hover:bg-gray-100 rounded-lg transition-all">
-                      <Edit2 size={16} />
-                    </button>
-                    <button onClick={() => handleDelete(product.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </td>
+      {/* Table */}
+      <div className="bg-surface rounded-[2rem] shadow-sm border border-outline-variant/30 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-surface-container/50 border-b border-outline-variant/30 text-on-surface-variant font-label-lg">
+                <th className="px-6 py-5 whitespace-nowrap">Product</th>
+                <th className="px-6 py-5 whitespace-nowrap">Category</th>
+                <th className="px-6 py-5 whitespace-nowrap">Price</th>
+                <th className="px-6 py-5 whitespace-nowrap">Stock</th>
+                <th className="px-6 py-5 whitespace-nowrap text-right">
+                  Actions
+                </th>
               </tr>
-            ))}
-            {products.length === 0 && (
-              <tr>
-                <td colSpan="5" className="py-8 text-center text-gray-500">No products found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-10">
+                    <div className="animate-pulse w-8 h-8 rounded-full bg-primary/20 mx-auto"></div>
+                  </td>
+                </tr>
+              ) : products.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan="5"
+                    className="text-center py-16 text-on-surface-variant font-body-lg"
+                  >
+                    No products found. Add one to get started.
+                  </td>
+                </tr>
+              ) : (
+                products.map((prod) => (
+                  <tr
+                    key={prod.id}
+                    className="border-b border-outline-variant/20 hover:bg-surface-variant/30 transition-colors group"
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-surface-container overflow-hidden shrink-0 relative border border-outline-variant/30">
+                          {prod.image_url ? (
+                            <Image
+                              src={prod.image_url}
+                              alt={prod.name}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <Coffee
+                              size={24}
+                              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-on-surface-variant/50"
+                            />
+                          )}
+                        </div>
+                        <span className="font-headline-sm text-on-surface">
+                          {prod.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-body-md text-on-surface-variant">
+                      <span className="px-3 py-1 bg-surface-container rounded-lg border border-outline-variant/30 text-xs font-label-md">
+                        {prod.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 font-body-md text-on-surface">
+                      {formatPrice(prod.price)}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`font-label-md px-2 py-1 rounded-md ${prod.stock < 10 ? "bg-red-50 text-red-700" : "text-emerald-700 bg-emerald-50"}`}
+                      >
+                        {prod.stock}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => openEdit(prod)}
+                          className="p-2 bg-surface-container hover:bg-primary-container hover:text-primary rounded-lg transition-colors text-on-surface-variant"
+                        >
+                          <Edit size={18} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(prod.id)}
+                          className="p-2 bg-surface-container hover:bg-red-100 hover:text-red-600 rounded-lg transition-colors text-on-surface-variant"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-              <h3 className="text-lg font-bold text-gray-800">{editingProduct ? "Edit Product" : "Add New Product"}</h3>
-              <button onClick={handleCloseModal} className="text-gray-400 hover:text-gray-600">
-                <X size={20} />
-              </button>
-            </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Product Name</label>
-                <input 
-                  type="text" 
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20"
-                  placeholder="e.g. Iced Caramel Macchiato"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
-                <select 
-                  required
-                  value={formData.category}
-                  onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20 bg-white"
-                >
-                  <option value="">Select a category</option>
-                  <option value="Coffee">Coffee</option>
-                  <option value="Tea">Tea</option>
-                  <option value="Pastry">Pastry</option>
-                  <option value="Snack">Snack</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Price ($)</label>
-                  <input 
-                    type="number" 
-                    step="0.01"
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-surface rounded-[2rem] w-full max-w-2xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-6 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="font-display text-2xl text-on-surface mb-6">
+              {editingId ? "Edit Product" : "Add New Product"}
+            </h3>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    Product Name
+                  </label>
+                  <input
                     required
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                    placeholder="e.g. Latte"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    Category
+                  </label>
+                  <select
+                    required
+                    value={formData.category}
+                    onChange={(e) =>
+                      setFormData({ ...formData, category: e.target.value })
+                    }
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                  >
+                    <option value="Coffee">Coffee</option>
+                    <option value="Non-Coffee">Non-Coffee</option>
+                    <option value="Pastry">Pastry</option>
+                  </select>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    Price (IDR)
+                  </label>
+                  <input
+                    required
+                    type="number"
                     value={formData.price}
-                    onChange={(e) => setFormData({...formData, price: e.target.value})}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20"
-                    placeholder="0.00"
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                    placeholder="25000"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Stock</label>
-                  <input 
-                    type="number" 
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    Initial Stock
+                  </label>
+                  <input
                     required
+                    type="number"
                     value={formData.stock}
-                    onChange={(e) => setFormData({...formData, stock: e.target.value})}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20"
-                    placeholder="0"
+                    onChange={(e) =>
+                      setFormData({ ...formData, stock: e.target.value })
+                    }
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                    placeholder="100"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    {editingId ? "Image URL" : "Product Image"}
+                  </label>
+                  {editingId ? (
+                    <input
+                      value={formData.image_url}
+                      onChange={(e) =>
+                        setFormData({ ...formData, image_url: e.target.value })
+                      }
+                      className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                      placeholder="https://..."
+                    />
+                  ) : (
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setImageFile(e.target.files[0])}
+                      className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-label-lg file:bg-primary-container file:text-primary hover:file:bg-primary-container/80 transition-all cursor-pointer"
+                    />
+                  )}
+                </div>
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label className="font-label-md text-on-surface-variant ml-1">
+                    Description
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                    placeholder="Product details..."
                   />
                 </div>
               </div>
-              <div className="pt-4 flex justify-end gap-3">
-                <button type="button" onClick={handleCloseModal} className="px-5 py-2.5 rounded-xl text-gray-600 font-medium hover:bg-gray-100 transition-colors">
+              <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-outline-variant/30">
+                <Button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  variant="ghost"
+                  className="rounded-full px-6 py-6 font-label-lg hover:bg-surface-variant"
+                >
                   Cancel
-                </button>
-                <button type="submit" className="px-5 py-2.5 rounded-xl bg-[#1E3023] text-white font-medium hover:bg-[#2a4231] transition-colors">
-                  {editingProduct ? "Save Changes" : "Create Product"}
-                </button>
+                </Button>
+                <Button
+                  type="submit"
+                  className="rounded-full bg-primary text-on-primary px-8 py-6 shadow-md hover:-translate-y-0.5 transition-transform font-label-lg"
+                >
+                  {editingId ? "Save Changes" : "Create Product"}
+                </Button>
               </div>
             </form>
           </div>

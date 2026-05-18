@@ -12,7 +12,6 @@ export default function MenuPage() {
   return (
     <div className="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen w-full flex flex-col">
       <main className="flex-grow flex flex-col w-full">
-        <MenuHeroSection />
         <ProductCatalog />
       </main>
       <Footer />

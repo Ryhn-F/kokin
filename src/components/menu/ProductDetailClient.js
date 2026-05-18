@@ -107,7 +107,7 @@ export default function ProductDetailClient() {
         <h2 className="font-display text-4xl text-on-surface mb-4">
           Product Not Found
         </h2>
-        <p className="font-body-lg text-on-surface-variant mb-10 max-w-md leading-relaxed">
+        <p className="font-body-lg text-on-surface-variant mb-10  leading-relaxed">
           We couldn&apos;t find the product you&apos;re looking for. It may have
           been removed or the link might be incorrect.
         </p>

@@ -1,9 +1,41 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Coffee, ArrowRight } from "lucide-react";
+import { Coffee, ArrowRight, Loader2 } from "lucide-react";
+import axios from "axios";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
+
+      if (res.data.success) {
+        const token = res.data.data.token;
+        localStorage.setItem("token", token);
+        document.cookie = `token=${token}; path=/; max-age=86400; SameSite=Lax`;
+        router.push("/products");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="w-full max-w-5xl flex rounded-3xl overflow-hidden shadow-2xl bg-white m-4 min-h-[600px]">
       {/* Left side - Branding/Image */}
@@ -25,7 +57,7 @@ export default function LoginPage() {
           <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
             Manage your coffee shop with elegance.
           </h1>
-          <p className="text-white/70 text-lg leading-relaxed max-w-md">
+          <p className="text-white/70 text-lg leading-relaxed ">
             Streamline your orders, track inventory, and grow your business with
             our intuitive dashboard.
           </p>
@@ -34,7 +66,7 @@ export default function LoginPage() {
 
       {/* Right side - Form */}
       <div className="w-full md:w-1/2 p-12 lg:p-16 flex flex-col justify-center bg-white relative">
-        <div className="max-w-sm w-full mx-auto">
+        <div className="w-full mx-auto">
           <div className="mb-10 text-center md:text-left">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
@@ -42,18 +74,25 @@ export default function LoginPage() {
             <p className="text-gray-500">
               Please enter your details to sign in.
             </p>
+            {error && (
+              <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
           </div>
 
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-gray-700">
                 Email Address
               </label>
               <input
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@kokin.com"
                 className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20 bg-gray-50/50 focus:bg-white transition-colors"
-                defaultValue="admin@kokin.com"
               />
             </div>
 
@@ -71,9 +110,11 @@ export default function LoginPage() {
               </div>
               <input
                 type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1E3023]/20 bg-gray-50/50 focus:bg-white transition-colors"
-                defaultValue="password"
               />
             </div>
 
@@ -88,26 +129,26 @@ export default function LoginPage() {
               </label>
             </div>
 
-            <Link href="/dashboard" className="block mt-8">
-              <button className="w-full bg-[#1E3023] hover:bg-[#2a4231] text-white py-4 rounded-xl font-medium text-lg transition-all flex items-center justify-center gap-2 group">
-                Sign In
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#1E3023] hover:bg-[#2a4231] text-white py-4 rounded-xl font-medium text-lg transition-all flex items-center justify-center gap-2 group"
+              >
+                {loading ? (
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight
+                      size={18}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </>
+                )}
               </button>
-            </Link>
+            </div>
           </form>
-
-          <div className="mt-8 text-center text-sm text-gray-500">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="#"
-              className="text-[#1E3023] font-semibold hover:underline"
-            >
-              Contact Support
-            </Link>
-          </div>
         </div>
       </div>
     </div>

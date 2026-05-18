@@ -1,4 +1,4 @@
-import "../../globals.css";
+import "../globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
@@ -18,8 +18,11 @@ export const metadata = {
 
 export default function AuthLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="h-full bg-[#F4F1ED] flex items-center justify-center">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="h-full w-full bg-[#F4F1ED] flex items-center justify-center">
         {children}
       </body>
     </html>

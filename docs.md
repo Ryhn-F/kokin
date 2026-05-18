@@ -200,3 +200,17 @@ Retrieves all orders along with associated items, products, and seat details.
 **Responses:**
 
 - `200 OK`: Returns an array of orders, sorted from newest to oldest. Includes populated `order_items`, `products`, and `seats` data.
+
+---
+
+## Seats APIs
+
+### 1. Get All Seats
+
+Retrieves all available seats and tables.
+
+**Endpoint:** `GET /seat`
+
+**Responses:**
+
+- `200 OK`: Returns an array of seats containing `id`, `seat_number`, `capacity`, and `status`.

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -47,9 +48,12 @@ export default function HeroSection() {
             for a better coffee experience.
           </p>
           <div>
-            <Button className="bg-primary-container text-on-surface text-lg font-label-lg px-8 py-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all rounded-none h-auto">
-              Explore Our Specials
-            </Button>
+            <Link
+              href="/menu"
+              className="bg-primary-container text-on-surface text-lg font-label-lg px-8 py-4 border-2 border-on-surface shadow-[4px_4px_0px_0px_#182B2B] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#182B2B] transition-all rounded-none h-auto"
+            >
+              Explore Our Menus
+            </Link>
           </div>
         </div>
         <div className="relative w-full h-[600px] flex justify-end items-center">
