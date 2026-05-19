@@ -16,7 +16,9 @@ export default function MenuSection() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product`,
+        );
         let productsData = [];
         if (Array.isArray(response.data)) {
           productsData = response.data;
@@ -91,7 +93,7 @@ export default function MenuSection() {
   };
 
   return (
-    <section className="bg-surface py-xl px-margin-desktop w-full">
+    <section className="bg-surface py-xl px-margin-desktop w-full shadow-lg">
       <div className="max-w-7xl mx-auto flex flex-col gap-xl">
         <div className="text-center flex flex-col items-center gap-sm">
           <h2 className="font-headline-lg text-headline-lg text-on-surface">
