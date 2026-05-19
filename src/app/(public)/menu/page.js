@@ -3,9 +3,13 @@ import ProductCatalog from "@/components/menu/ProductCatalog";
 import Footer from "@/components/homepage/Footer";
 
 export const metadata = {
-  title: "Menu | Kokin Coffee",
+  title: "Menu",
   description:
-    "Explore our thoughtfully curated menu of crafted drinks and treats.",
+    "Explore our thoughtfully curated menu of crafted drinks and treats. Browse through our premium coffee selection and reserve your favorite items.",
+  openGraph: {
+    title: "Our Menu | Kokin Coffee",
+    description: "Explore our thoughtfully curated menu of crafted drinks and treats.",
+  },
 };
 
 export default function MenuPage() {

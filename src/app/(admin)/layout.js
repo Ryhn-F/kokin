@@ -3,7 +3,11 @@ import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 
 export const metadata = {
   title: "Admin Dashboard | Kokin Coffee",
-  description: "Premium admin dashboard for Kokin Coffee",
+  description: "Premium admin dashboard for Kokin Coffee.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function AdminLayout({ children }) {

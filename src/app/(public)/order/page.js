@@ -2,8 +2,12 @@ import Footer from "@/components/homepage/Footer";
 import OrderClient from "@/components/order/OrderClient";
 
 export const metadata = {
-  title: "Complete Order | Kokin Coffee",
+  title: "Complete Order",
   description: "Complete your order and reserve a table at Kokin Coffee.",
+  openGraph: {
+    title: "Complete Order | Kokin Coffee",
+    description: "Complete your order and reserve a table at Kokin Coffee.",
+  },
 };
 
 export default function OrderPage() {

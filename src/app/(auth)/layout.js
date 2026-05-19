@@ -12,8 +12,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Login - Kokin Admin",
-  description: "Login to the admin dashboard",
+  title: "Admin Login | Kokin Coffee",
+  description: "Secure login for Kokin Coffee administrative dashboard.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function AuthLayout({ children }) {

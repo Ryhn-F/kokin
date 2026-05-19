@@ -2,8 +2,8 @@ import Footer from "@/components/homepage/Footer";
 import ProductDetailClient from "@/components/menu/ProductDetailClient";
 
 export const metadata = {
-  title: "Product Detail | Kokin Coffee",
-  description: "Discover our premium crafted drinks and treats.",
+  title: "Product Detail",
+  description: "Discover our premium crafted drinks and treats at Kokin Coffee.",
 };
 
 export default function ProductDetailPage() {

@@ -88,37 +88,33 @@ export default function ProductsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (editingId) {
-        const payload = {
-          name: formData.name,
-          category: formData.category,
-          price: Number(formData.price),
-          stock: Number(formData.stock),
-          description: formData.description,
-          image_url: formData.image_url,
-        };
-        await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/${editingId}`, payload);
-      } else {
-        const createData = new FormData();
-        createData.append("name", formData.name);
-        createData.append("category", formData.category);
-        createData.append("price", Number(formData.price));
-        createData.append("stock", Number(formData.stock));
-        createData.append("description", formData.description);
-        if (imageFile) {
-          createData.append("image", imageFile);
-        }
+      const token = localStorage.getItem("token") || "";
+      const submitData = new FormData();
+      submitData.append("name", formData.name);
+      submitData.append("category", formData.category);
+      submitData.append("price", Number(formData.price));
+      submitData.append("stock", Number(formData.stock));
+      submitData.append("description", formData.description);
+      if (imageFile) {
+        submitData.append("image", imageFile);
+      }
 
-        const token = localStorage.getItem("token") || ""; // Optional token handling if needed
+      const headers = {
+        "Content-Type": "multipart/form-data",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      };
+
+      if (editingId) {
+        await axios.put(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/${editingId}`,
+          submitData,
+          { headers },
+        );
+      } else {
         await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/product/create-product`,
-          createData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              ...(token && { Authorization: `Bearer ${token}` }),
-            },
-          },
+          submitData,
+          { headers },
         );
       }
       setIsModalOpen(false);
@@ -343,25 +339,44 @@ export default function ProductsPage() {
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
                   <label className="font-label-md text-on-surface-variant ml-1">
-                    {editingId ? "Image URL" : "Product Image"}
+                    Product Image
                   </label>
-                  {editingId ? (
-                    <input
-                      value={formData.image_url}
-                      onChange={(e) =>
-                        setFormData({ ...formData, image_url: e.target.value })
-                      }
-                      className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-                      placeholder="https://..."
-                    />
-                  ) : (
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => setImageFile(e.target.files[0])}
-                      className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-label-lg file:bg-primary-container file:text-primary hover:file:bg-primary-container/80 transition-all cursor-pointer"
-                    />
+                  {editingId && formData.image_url && !imageFile && (
+                    <div className="flex items-center gap-3 p-3 bg-surface-container rounded-2xl border border-outline-variant/30">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden relative shrink-0 border border-outline-variant/30">
+                        <Image
+                          src={formData.image_url}
+                          alt="Current product"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <span className="font-body-sm text-on-surface-variant truncate flex-1">
+                        Current image
+                      </span>
+                    </div>
                   )}
+                  {imageFile && (
+                    <div className="flex items-center gap-3 p-3 bg-surface-container rounded-2xl border border-primary/30">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden relative shrink-0 border border-outline-variant/30">
+                        <Image
+                          src={URL.createObjectURL(imageFile)}
+                          alt="New image preview"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <span className="font-body-sm text-on-surface-variant truncate flex-1">
+                        {imageFile.name}
+                      </span>
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                    className="w-full bg-surface-container px-5 py-3.5 rounded-2xl border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-label-lg file:bg-primary-container file:text-primary hover:file:bg-primary-container/80 transition-all cursor-pointer"
+                  />
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
                   <label className="font-label-md text-on-surface-variant ml-1">
